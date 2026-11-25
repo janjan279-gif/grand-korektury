@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Grand Špindlerův Mlýn</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: horská pohlednice – úzké vysoké verzálky jako lamely nové fasády, sněhově chladný papír, tmavá smrková čerň; historie v sépiové vrstvě */
+:root{
+  --snow:#F3F5F3;
+  --paper:#FFFFFF;
+  --ink:#141B18;
+  --ink-2:#4A5650;
+  --spruce:#25473D;
+  --spruce-soft:#DCE6E1;
+  --sepia:#EDE6D9;
+  --sepia-ink:#5B4A33;
+  --line:#CBD3CF;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Instrument Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --wrap:1180px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --snow:#101614;--paper:#18201D;--ink:#E9EEEB;--ink-2:#A5B2AC;--spruce:#8FC0AE;--spruce-soft:#1F332C;--sepia:#231E17;--sepia-ink:#D9C6A6;--line:#2C3833;color-scheme:dark}}
+:root[data-theme="dark"]{--snow:#101614;--paper:#18201D;--ink:#E9EEEB;--ink-2:#A5B2AC;--spruce:#8FC0AE;--spruce-soft:#1F332C;--sepia:#231E17;--sepia-ink:#D9C6A6;--line:#2C3833;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--snow);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+a{color:var(--spruce)}
+img{display:block;max-width:100%}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.01em;line-height:.95;text-wrap:balance;margin:0}
+h1{font-size:clamp(52px,9vw,112px);font-weight:800}
+h2{font-size:clamp(40px,6vw,72px);font-weight:700}
+h3{font-size:28px;font-weight:700;letter-spacing:.02em}
+p{margin:0}
+.lead{font-size:20px;line-height:1.55;max-width:38em;color:var(--ink-2)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--spruce)}
+.draft{background:var(--ink);color:var(--snow);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-align:center;padding-block:6px}
+.draft .wrap{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+
+/* header */
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.brand{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);line-height:1}
+.brand b{font-family:var(--display);font-size:30px;font-weight:800;letter-spacing:.04em}
+.brand span{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-top:3px}
+nav.main{display:flex;gap:4px;flex-wrap:wrap}
+nav.main a{font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:19px;letter-spacing:.05em;color:var(--ink-2);text-decoration:none;padding:8px 10px;border-bottom:2px solid transparent}
+nav.main a:hover{color:var(--ink)}
+nav.main a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--spruce)}
+nav.main a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--spruce);outline-offset:2px}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--ink);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;cursor:pointer}
+@media (max-width:860px){
+  .menu-btn{display:block}
+  nav.main{display:none;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;padding:8px max(16px,env(safe-area-inset-left,0px)) 16px}
+  nav.main.open{display:flex}
+}
+
+main section.page{display:none}
+main section.page.on{display:block}
+.band{padding-block:72px}
+.band.tight{padding-block:48px}
+.band.paper{background:var(--paper)}
+.band.dark{background:var(--ink);color:var(--snow)}
+.band.dark .lead{color:color-mix(in srgb,var(--snow) 75%,transparent)}
+.band.dark .eyebrow{color:var(--spruce-soft)}
+.stack{display:flex;flex-direction:column;gap:20px}
+
+/* hero */
+.hero{position:relative;background:var(--ink)}
+.hero img{width:100%;height:clamp(360px,62vh,640px);object-fit:cover;opacity:.92}
+.hero .over{position:absolute;inset:auto 0 0 0;background:linear-gradient(to top,rgba(10,14,12,.85),rgba(10,14,12,0));padding-block:120px 40px;color:#F3F5F3}
+.hero .over .lead{color:rgba(243,245,243,.85)}
+.hero .over .eyebrow{color:#BFD6CC}
+.hero .over .wrap{display:flex;flex-direction:column;gap:16px}
+
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.tile{background:var(--paper);padding:28px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.tile .num{font-family:var(--display);font-size:56px;font-weight:800;line-height:1;color:var(--spruce);font-variant-numeric:tabular-nums}
+.tile .num small{font-size:24px}
+.tile p{color:var(--ink-2)}
+@media (max-width:760px){.tiles{grid-template-columns:1fr}}
+
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.card{display:flex;flex-direction:column;gap:12px;text-decoration:none;color:var(--ink)}
+.card img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.card h3{display:flex;justify-content:space-between;align-items:baseline}
+.card h3::after{content:"→";font-family:var(--body);font-size:22px;color:var(--spruce)}
+.card p{color:var(--ink-2);font-size:16px}
+.card:hover h3{color:var(--spruce)}
+@media (max-width:760px){.cards{grid-template-columns:1fr}}
+
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:start}
+.split.rev{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+@media (max-width:860px){.split,.split.rev{grid-template-columns:1fr;gap:28px}}
+
+figure{margin:0;display:flex;flex-direction:column;gap:8px}
+figcaption{font-family:var(--mono);font-size:12px;color:var(--ink-2);letter-spacing:.02em}
+
+.benefits{border-top:2px solid var(--ink)}
+.benefit{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:24px;padding-block:20px;border-bottom:1px solid var(--line)}
+.benefit h3{font-size:24px}
+.benefit p{color:var(--ink-2)}
+.benefit .ref{font-family:var(--mono);font-size:12px;color:var(--spruce);display:block;margin-top:6px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--spruce);color:var(--spruce);margin-left:8px;vertical-align:middle}
+@media (max-width:640px){.benefit{grid-template-columns:1fr;gap:8px}}
+
+.portrait{aspect-ratio:4/5;background:repeating-linear-gradient(90deg,var(--spruce-soft) 0 14px,var(--paper) 14px 18px);display:flex;align-items:flex-end;padding:16px;font-family:var(--mono);font-size:12px;color:var(--ink-2);border:1px solid var(--line)}
+
+/* parameters */
+.params{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.params th,.params td{text-align:left;padding:14px 0;border-bottom:1px solid var(--line);vertical-align:baseline}
+.params th{font-weight:500;color:var(--ink-2);padding-right:16px}
+.params td{font-family:var(--display);font-size:30px;font-weight:700;text-align:right;white-space:nowrap}
+.params td small{font-family:var(--body);font-size:14px;font-weight:400;color:var(--ink-2)}
+
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.gallery button{padding:0;border:0;background:none;cursor:zoom-in;display:block}
+.gallery img{aspect-ratio:16/9;object-fit:cover;width:100%}
+@media (max-width:760px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;border-top:2px solid var(--ink)}
+.steps li{padding:16px 12px 0 0;display:flex;flex-direction:column;gap:6px;position:relative}
+.steps li::before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid var(--ink);background:var(--snow);position:absolute;top:-8px;left:0}
+.steps li.done::before{background:var(--spruce);border-color:var(--spruce)}
+.steps li.now::before{background:var(--snow);border-color:var(--spruce);box-shadow:0 0 0 4px var(--spruce-soft)}
+.steps b{font-family:var(--display);text-transform:uppercase;font-size:20px;letter-spacing:.03em;line-height:1.05;margin-top:12px}
+.steps span{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+@media (max-width:860px){.steps{grid-template-columns:1fr;border-top:0;border-left:2px solid var(--ink);margin-left:6px}.steps li{padding:0 0 22px 24px}.steps li::before{left:-8px;top:2px}.steps b{margin-top:0}}
+
+.public{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.public div{background:var(--paper);padding:18px;font-size:15px;min-width:0}
+.public b{display:block;font-family:var(--display);text-transform:uppercase;font-size:20px;letter-spacing:.03em}
+@media (max-width:860px){.public{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* history */
+.hist{background:var(--sepia);color:var(--ink)}
+.hist .eyebrow{color:var(--sepia-ink)}
+.timeline{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--sepia-ink);margin-left:8px}
+.ev{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;padding:0 0 48px 32px;position:relative}
+.ev::before{content:"";position:absolute;left:-9px;top:10px;width:16px;height:16px;background:var(--sepia);border:2px solid var(--sepia-ink);transform:rotate(45deg)}
+.ev .yr{font-family:var(--display);font-weight:800;font-size:64px;line-height:.9;color:var(--sepia-ink);font-variant-numeric:tabular-nums}
+.ev h3{margin-block:6px 10px}
+.ev p{max-width:34em}
+.ev figure img{filter:sepia(.15)}
+.ev.noimg{grid-template-columns:minmax(0,1fr)}
+@media (max-width:760px){.ev{grid-template-columns:1fr;gap:16px;padding-left:24px}}
+
+.compare{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--ink);max-width:100%}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.compare .old{clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0);filter:sepia(.35) contrast(1.05)}
+.compare .bar{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:#F3F5F3;pointer-events:none}
+.compare .lbl{position:absolute;top:12px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;background:rgba(10,14,12,.7);color:#F3F5F3;padding:4px 8px}
+.compare input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+
+/* faq */
+.faq{display:flex;flex-direction:column;border-top:2px solid var(--ink)}
+.faq h3{margin-top:40px;margin-bottom:8px;font-size:22px;color:var(--spruce)}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:18px 40px 18px 0;font-weight:600;font-size:19px;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:12px;font-family:var(--display);font-size:32px;color:var(--spruce);line-height:1}
+details[open] summary::after{content:"–"}
+details p{padding:0 0 20px;color:var(--ink-2);max-width:42em}
+
+.ph{background:color-mix(in srgb,#E2B33C 28%,transparent);padding:0 4px;font-family:var(--mono);font-size:.82em}
+
+/* contact */
+.contact{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+form{display:flex;flex-direction:column;gap:14px}
+label{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
+input,textarea{font:inherit;font-family:var(--body);font-size:16px;text-transform:none;letter-spacing:0;color:var(--ink);background:var(--paper);border:1px solid var(--line);padding:12px;border-radius:0}
+.check{flex-direction:row;align-items:flex-start;gap:10px;text-transform:none;letter-spacing:0;font-family:var(--body);font-size:14px}
+.btn{font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:20px;letter-spacing:.06em;background:var(--ink);color:var(--snow);border:0;padding:14px 22px;cursor:pointer;align-self:flex-start;text-decoration:none;display:inline-block}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--ink)}
+.ok{font-family:var(--mono);font-size:13px;color:var(--spruce)}
+.addr{font-family:var(--mono);font-size:15px;line-height:1.8}
+
+footer{background:var(--ink);color:#B9C5BF;font-size:14px}
+footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;padding-block:48px}
+footer b{color:#F3F5F3;font-family:var(--display);text-transform:uppercase;font-size:22px;letter-spacing:.04em;font-weight:700}
+footer a{color:#B9C5BF}
+footer .mono{font-family:var(--mono);font-size:12px}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+
+dialog{border:0;padding:0;background:transparent;max-width:min(1400px,96vw)}
+dialog::backdrop{background:rgba(8,10,9,.9)}
+dialog img{max-height:86vh;width:auto;margin:0 auto}
+dialog .bar2{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:10px;color:#F3F5F3;font-family:var(--mono);font-size:12px}
+dialog button{background:none;border:1px solid #F3F5F3;color:#F3F5F3;font-family:var(--mono);padding:6px 12px;cursor:pointer}
+
+@media (prefers-reduced-motion:no-preference){main section.page.on{animation:in .35s ease-out}@keyframes in{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}}
+</style>
+</head>
+<body>
+
+<div class="draft"><div class="wrap"><span>Pracovní návrh webu ke korekturám</span><span>Žlutě = místa k doplnění</span></div></div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#uvod"><b>Grand</b><span>Špindlerův Mlýn</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="main" id="nav">
+      <a href="#uvod">Úvod</a>
+      <a href="#spolecnost">O společnosti</a>
+      <a href="#projekt">Projekt hotelu</a>
+      <a href="#historie">Historie</a>
+      <a href="#otazky">Otázky</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ÚVOD -->
+<section class="page" id="p-uvod">
+  <div class="hero">
+    <img src="img/viz-25.jpg" alt="Vizualizace nového hotelu Grand v zimě, pohled od řeky">
+    <div class="over"><div class="wrap">
+      <span class="eyebrow">Sachrovy boudy · č. p. 164</span>
+      <h1>Grand se vrací<br>do Špindlerova Mlýna</h1>
+      <p class="lead">Na místě historického hotelu Grand připravujeme nový hotel, který navazuje na jeho tradici a respektuje město i hory kolem něj.</p>
+    </div></div>
+  </div>
+
+  <div class="band tight paper"><div class="wrap">
+    <div class="tiles">
+      <div class="tile"><div class="num">37,4 <small>mil. Kč</small></div><h3>Pro vodu a čistírnu</h3><p>Podle plánovací smlouvy jdou účelově na čistírnu odpadních vod a pitnou vodu.</p></div>
+      <div class="tile"><div class="num">170 <small>pokojů</small></div><h3>V měřítku místa</h3><p>Nejvýše 170 pokojů a budova ne vyšší než dnešní Grand.</p></div>
+      <div class="tile"><div class="num">CPI</div><h3>Závazky jsou zajištěné</h3><p>Za platby městu ručí skupina CPI po celou dobu plánovací smlouvy.</p></div>
+    </div>
+  </div></div>
+
+  <div class="band"><div class="wrap stack" style="gap:32px">
+    <span class="eyebrow">Projekt v kostce</span>
+    <div class="cards">
+      <a class="card" href="#spolecnost"><img src="img/viz-29.jpg" alt=""><h3>O společnosti</h3><p>Kdo projekt vede a co z něj má město.</p></a>
+      <a class="card" href="#projekt"><img src="img/viz-26.jpg" alt=""><h3>Projekt hotelu</h3><p>Co se postaví, v jakém rozsahu a kde je projekt dnes.</p></a>
+      <a class="card" href="#historie"><img src="img/hist-1921.jpg" alt=""><h3>Historie</h3><p>Od hotelu Deutscher Kaiser přes Zotavovnu 9. květen po dnešek.</p></a>
+    </div>
+  </div></div>
+
+  <div class="band dark tight"><div class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap">
+    <p class="lead" style="margin:0">Máte otázku k projektu? Podívejte se do otázek a odpovědí, nebo nám napište.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" style="background:var(--snow);color:var(--ink)" href="#otazky">Otázky a odpovědi</a><a class="btn ghost" style="color:var(--snow);border-color:var(--snow)" href="#kontakt">Napište nám</a></div>
+  </div></div>
+</section>
+
+<!-- O SPOLEČNOSTI -->
+<section class="page" id="p-spolecnost">
+  <div class="band paper"><div class="wrap split">
+    <div class="stack">
+      <span class="eyebrow">O společnosti</span>
+      <h2>Projekt vede<br>místní architekt</h2>
+    </div>
+    <div class="stack">
+      <p class="lead">Hotel Grand Špindlerův Mlýn s.r.o. vznikla, aby dovedla projekt nového Grandu do konce.</p>
+      <p>Projekt vede Petr Fiala, architekt, který ve Špindlerově Mlýně žije a v roce 2023 zpracoval ověřovací studii, ze které dnešní projekt vychází. Místo a jeho pravidla proto známe zblízka.</p>
+    </div>
+  </div></div>
+
+  <div class="band"><div class="wrap split rev">
+    <div class="stack">
+      <span class="eyebrow">Plánovací smlouva</span>
+      <h2>Závazky vůči městu jsou zajištěné</h2>
+      <p>Projekt stojí na plánovací smlouvě, kterou zastupitelstvo schválilo v lednu 2026. Smlouva určuje, co se smí postavit a co za to město získá.</p>
+      <p>Za platby městu ručí skupina CPI po celou dobu trvání smlouvy. Peníze na infrastrukturu jsou tak zajištěné, ať projekt v budoucnu povede kdokoli.</p>
+    </div>
+    <div class="portrait">Foto: Petr Fiala ve Špindlerově Mlýně <span class="ph" style="margin-left:6px">dodá Jan</span></div>
+  </div></div>
+
+  <div class="band paper"><div class="wrap stack" style="gap:28px">
+    <span class="eyebrow">Co získá město</span>
+    <h2>Přínosy podle plánovací smlouvy</h2>
+    <div class="benefits">
+      <div class="benefit"><h3>Peníze na vodu a kanalizaci</h3><p>37 423 872 Kč, účelově na čistírnu odpadních vod a pitnou vodu.<span class="ref">Plánovací smlouva, čl. IV</span></p></div>
+      <div class="benefit"><h3>Jistota plateb</h3><p>Za platby městu ručí CPI po celou dobu trvání smlouvy.</p></div>
+      <div class="benefit"><h3>Nová silnice na náklady investora</h3><p>Přeložku místní komunikace investor připraví, nechá povolit a postaví na vlastní náklady. Městu ji předá za symbolických 10 000 Kč.<span class="ref">čl. IV.8, VI.1</span></p></div>
+      <div class="benefit"><h3>Další stavby podle volby města<span class="tag">na žádost města</span></h3><p>V rámci přeložky může investor na žádost města postavit park, rozšíření silnice a křižovatky U Staré lékárny, chodníky a autobusovou zastávku, rekonstrukci stávající lávky a novou lávku přes řeku.<span class="ref">čl. IV.9</span></p></div>
+      <div class="benefit"><h3>Auta pod zemí</h3><p>Nejméně 90 % parkování bude uvnitř stavby, v podzemních podlažích.</p></div>
+      <div class="benefit"><h3>Konec zdevastované budovy</h3><p>Budovu, která je prázdná od roku 1989, nahradí nový hotel.</p></div>
+      <div class="benefit"><h3>Celoroční provoz a práce</h3><p>Hotel kategorie 4 až 5 hvězd pod značkou mezinárodního řetězce, s hosty i mimo sezónu. <span class="ph">[počet pracovních míst]</span></p></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- PROJEKT -->
+<section class="page" id="p-projekt">
+  <div class="hero">
+    <img src="img/viz-28.jpg" alt="Vizualizace nového hotelu od silnice">
+    <div class="over"><div class="wrap">
+      <span class="eyebrow">Projekt hotelu</span>
+      <h1>Nový Grand</h1>
+      <p class="lead">Hotel vyšší kategorie s parkem, který bude patřit i městu.</p>
+    </div></div>
+  </div>
+
+  <div class="band paper"><div class="wrap split">
+    <div class="stack">
+      <span class="eyebrow">Co postavíme</span>
+      <h2>Rozsah pevně daný smlouvou s městem</h2>
+      <p>Rozsah a výšku nového Grandu určuje plánovací smlouva, kterou zastupitelstvo schválilo 26. ledna 2026.</p>
+      <p>Hotel tvoří tři křídla s tmavou dřevěnou fasádou a zelenými střechami. Štítová část odkazuje na původní Grand. Před hotelem vznikne park s jezírkem, které se v zimě může proměnit v kluziště, s ohništěm a dětským hřištěm. Součástí hotelu je wellness s venkovním bazénem a terasou s výhledem do údolí. <span class="ph">[potvrdit, co bude přístupné veřejnosti]</span></p>
+    </div>
+    <table class="params">
+      <tr><th>Počet pokojů</th><td>≤ 170</td></tr>
+      <tr><th>Počet lůžek</th><td>≤ 340</td></tr>
+      <tr><th>Výška</th><td><small>ne vyšší než</small> dnešní Grand</td></tr>
+      <tr><th>Zastavěnost pozemku</th><td>≤ 46,1 %</td></tr>
+      <tr><th>4. nadzemní podlaží</th><td>≤ 1 500 m²</td></tr>
+      <tr><th>Parkování uvnitř stavby</th><td>≥ 90 %</td></tr>
+    </table>
+  </div></div>
+
+  <div class="band"><div class="wrap stack" style="gap:24px">
+    <span class="eyebrow">Vizualizace · ověřovací studie 11/2023</span>
+    <div class="gallery" id="gallery"></div>
+  </div></div>
+
+  <div class="band paper"><div class="wrap stack" style="gap:28px">
+    <span class="eyebrow">Řešené území</span>
+    <h2>Mezi řekou a lesem</h2>
+    <div class="split">
+      <figure><img src="img/ortofoto.jpg" alt="Letecký snímek s hranicí řešeného území"><figcaption>Hranice řešeného území · zdroj: mapy.cz <span class="ph">licence k ověření</span></figcaption></figure>
+      <figure><img src="img/situace.jpg" alt="Situace z ověřovací studie"><figcaption>Situace, ověřovací studie asi-metr, 11/2023, 1:1000</figcaption></figure>
+    </div>
+    <p>Studie počítá i s prvky pro veřejnost. Kromě přeložky silnice je město podle smlouvy může vybrat a investor je pak postaví.</p>
+    <div class="public">
+      <div><b>Park</b>s jezírkem a ostrůvkem</div>
+      <div><b>Hřiště</b>se skluzavkou, ohniště a lavičky</div>
+      <div><b>Zastávky</b>dvě autobusové a stání pro taxi</div>
+      <div><b>Lávka</b>přes řeku a návaznost na lanové centrum</div>
+      <div><b>Chodník</b>a upravená křižovatka</div>
+    </div>
+  </div></div>
+
+  <div class="band"><div class="wrap stack" style="gap:36px">
+    <span class="eyebrow">Kde je projekt dnes</span>
+    <ol class="steps">
+      <li class="done"><b>Plánovací smlouva</b><span>schválena 1/2026</span></li>
+      <li class="done"><b>Veřejné projednání ÚP</b><span>proběhlo</span></li>
+      <li class="now"><b>Opakované projednání</b><span>připravuje se</span></li>
+      <li><b>Schválení změny ÚP</b><span>zastupitelstvo</span></li>
+      <li><b>Povolení stavby</b><span>stavební úřad</span></li>
+      <li><b>Stavba a otevření</b><span>termín oznámíme</span></li>
+    </ol>
+  </div></div>
+</section>
+
+<!-- HISTORIE -->
+<section class="page" id="p-historie">
+  <div class="hist band"><div class="wrap stack" style="gap:28px">
+    <span class="eyebrow">Historie</span>
+    <h1>Příběh Grandu</h1>
+    <p class="lead" style="color:var(--sepia-ink)">Příběh Grandu je příběhem Špindlerova Mlýna. Začal v centru u Bílého mostu, přežil povodeň, dvě změny režimu i nedokončenou přestavbu. Dnes stojí prázdný a čeká na novou kapitolu.</p>
+    <div class="compare" id="compare" style="--pos:55%">
+      <img src="img/viz-25.jpg" alt="Nový Grand, vizualizace">
+      <img class="old" src="img/hist-1921.jpg" alt="Grand Hotel na pohlednici z roku 1921">
+      <span class="lbl" style="left:12px">1921</span><span class="lbl" style="right:12px">Nový Grand</span>
+      <div class="bar"></div>
+      <input type="range" id="cmp" min="0" max="100" value="55" aria-label="Posunout srovnání kdysi a dnes">
+    </div>
+    <p style="font-family:var(--mono);font-size:12px;color:var(--sepia-ink)">Kdysi a dnes: táhněte posuvníkem.</p>
+  </div></div>
+
+  <div class="hist band" style="padding-top:0"><div class="wrap">
+    <div class="timeline">
+      <div class="ev noimg"><div><div class="yr">1897</div><h3>Hotel Německý císař u Bílého mostu</h3><p>První hotel s názvem Deutscher Kaiser nestál na dnešním místě, ale přímo v centru u Bílého mostu, zhruba tam, kde je dnes cukrárna Bogner. V roce 1897 budovu zničila povodeň.</p></div></div>
+      <div class="ev noimg"><div><div class="yr">po 1897</div><h3>Nový hotel na Sachrových boudách</h3><p>Majitel se nevzdal a nechal postavit nový hotel se stejným jménem, tentokrát výš na Sachrových boudách, kde stojí dodnes (č. p. 164). Brzy se pro něj vžil název, pod kterým ho zná celé město: Grand Hotel. <span class="ph">[rok stavby]</span></p></div></div>
+      <div class="ev"><div><div class="yr">1921</div><h3>Grand v době rozkvětu</h3><p>Hrázděná budova s věží a proskleným jídelním křídlem patřila k dominantám horského střediska.</p></div><figure><img src="img/hist-1921.jpg" alt="Grand Hotel v zimě, pohlednice 1921"><figcaption>Grand Hotel v zimě, pohlednice 1921 · <span class="ph">zdroj</span></figcaption></figure></div>
+      <div class="ev"><div><div class="yr">1920. léta</div><h3>Grand a Bellevue</h3><p>Grand Hotel s vilou Bellevue nad údolím. <span class="ph">[doplnit text a dataci]</span></p></div><figure><img src="img/hist-bellevue.jpg" alt="Grand Hotel s vilou Bellevue"><figcaption>Spindlermühle, Grand-Hotel mit Bellevue · <span class="ph">datace a zdroj</span></figcaption></figure></div>
+      <div class="ev"><div><div class="yr">po 1945</div><h3>Zotavovna 9. květen</h3><p>Po válce a znárodnění dostal hotel nové jméno a přešel pod odborovou rekreaci ROH jako Zotavovna 9. květen. Generace rodin sem jezdily na podnikovou dovolenou.</p></div><figure><img src="img/hist-zima.jpg" alt="Hotel v zimě s lyžaři"><figcaption>Hotel po přestavbě horních pater · <span class="ph">datace a zdroj</span></figcaption></figure></div>
+      <div class="ev noimg"><div><div class="yr">1989</div><h3>Nedokončená přestavba</h3><p>Těsně před sametovou revolucí začala velká rekonstrukce podle dobového socialistického projektu. Práce byly téměř hotové, ale ještě v roce 1989 objekt osiřel.</p></div></div>
+      <div class="ev noimg"><div><div class="yr">1991</div><h3>Konec nadějí na rychlé otevření</h3><p>Ukázalo se, že hotel nesplňuje nové standardy. Mnoho pokojů nemělo vlastní koupelnu ani WC. Majetkové poměry se po revoluci změnily a práce se zastavily.</p></div></div>
+      <div class="ev noimg"><div><div class="yr">2018</div><h3>Estate Grand a skupina CPI</h3><p>Majitelem se stala společnost Estate Grand s.r.o. ze skupiny CPI. Budova zůstává prázdná, v zakonzervovaném stavu nedokončené rekonstrukce. V lednu 2026 město schválilo plánovací smlouvu na nový hotel.</p></div></div>
+      <div class="ev noimg" style="padding-bottom:0"><div><div class="yr">2026</div><h3>Nová kapitola</h3><p>Začíná příprava nového Grandu s cílem vrátit ho městu a hostům.</p></div></div>
+    </div>
+  </div></div>
+
+  <div class="band dark tight"><div class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap">
+    <p class="lead" style="margin:0">Máte doma fotky nebo vzpomínky na Grand nebo Zotavovnu 9. květen? Pošlete nám je.</p>
+    <a class="btn" style="background:var(--snow);color:var(--ink)" href="#kontakt">Poslat vzpomínku</a>
+  </div></div>
+</section>
+
+<!-- FAQ -->
+<section class="page" id="p-otazky">
+  <div class="band paper"><div class="wrap split">
+    <div class="stack" style="position:sticky;top:96px">
+      <span class="eyebrow">Otázky a odpovědi</span>
+      <h2>Na co se lidé ptají</h2>
+      <p style="color:var(--ink-2)">Nenašli jste odpověď? <a href="#kontakt">Napište nám.</a></p>
+    </div>
+    <div class="faq">
+      <h3>O projektu</h3>
+      <details><summary>Co se na místě Grandu postaví?</summary><p>Nový hotel vyšší kategorie s nejvýše 170 pokoji a 340 lůžky. Rozsah určuje plánovací smlouva s městem.</p></details>
+      <details><summary>Bude nová budova vyšší než dnešní Grand?</summary><p>Ne. Plánovací smlouva výšku omezuje na výšku stávajícího hotelu.</p></details>
+      <details><summary>Kdy se začne stavět?</summary><p>Nejdřív musí zastupitelstvo schválit změnu územního plánu a projekt musí získat povolení. Termín stavby oznámíme, až budou tyto kroky hotové.</p></details>
+      <details><summary>Kdo bude hotel provozovat?</summary><p>Jednáme s mezinárodními hotelovými řetězci v kategorii 4 až 5 hvězd. Jméno provozovatele oznámíme po podpisu smlouvy.</p></details>
+      <details><summary>Bude hotel otevřený i místním?</summary><p><span class="ph">[restaurace / kavárna / wellness, doplnit podle projektu]</span></p></details>
+      <h3>O firmě a závazcích</h3>
+      <details><summary>Kdo za projektem stojí?</summary><p>Společnost Estate Grand s.r.o., která má s městem uzavřenou plánovací smlouvu. Projekt vede místní architekt Petr Fiala, autor ověřovací studie, ze které projekt vychází.</p></details>
+      <details><summary>Kdo ručí za platby městu?</summary><p>Skupina CPI, po celou dobu trvání plánovací smlouvy. Závazky ze smlouvy navíc přecházejí na každého dalšího vlastníka.</p></details>
+      <h3>Co to znamená pro město</h3>
+      <details><summary>Co z projektu město získá?</summary><p>37 423 872 Kč účelově na čistírnu odpadních vod a pitnou vodu a novou přeložku místní silnice postavenou na náklady investora. Na žádost města mohou přibýt chodníky, autobusová zastávka, park nebo lávky přes řeku. A místo zdevastované budovy, která stojí prázdná od roku 1989, nový hotel.</p></details>
+      <details><summary>Zvládne to čistírna odpadních vod a vodovod?</summary><p>Právě na to jdou peníze z plánovací smlouvy. Přípravu rozšíření infrastruktury vede město a podrobnosti zveřejňuje ono.</p></details>
+      <details><summary>Jak se můžu k projektu vyjádřit?</summary><p>Při opakovaném veřejném projednání změny územního plánu, které vyhlásí město. Napsat nám můžete i kdykoli přes <a href="#kontakt">kontaktní formulář</a>.</p></details>
+    </div>
+  </div></div>
+</section>
+
+<!-- KONTAKT -->
+<section class="page" id="p-kontakt">
+  <div class="band paper"><div class="wrap stack" style="gap:36px">
+    <div class="stack"><span class="eyebrow">Kontakt</span><h2>Napište nám</h2></div>
+    <div class="contact">
+      <form id="f">
+        <label for="f-name">Jméno<input id="f-name" name="name" autocomplete="name" required></label>
+        <label for="f-mail">E-mail<input id="f-mail" name="email" type="email" autocomplete="email" required></label>
+        <label for="f-msg">Zpráva<textarea id="f-msg" name="msg" rows="6" required></textarea></label>
+        <label class="check" for="f-ok"><input id="f-ok" type="checkbox" required> Souhlasím se zpracováním osobních údajů pro účely odpovědi.</label>
+        <button class="btn" type="submit">Odeslat zprávu</button>
+        <p class="ok" id="f-res" hidden>V návrhu se zpráva neodesílá. Na hotovém webu tu bude potvrzení odeslání.</p>
+      </form>
+      <div class="stack">
+        <div class="addr">
+          <div class="eyebrow" style="margin-bottom:6px">Pro veřejnost</div>
+          <span class="ph">info@hotelgrandspindleruvmlyn.cz</span>
+        </div>
+        <div class="addr">
+          <div class="eyebrow" style="margin-bottom:6px">Pro média</div>
+          Jan Charvát<br>charvat@ccgpr.cz
+        </div>
+        <div class="addr">
+          <div class="eyebrow" style="margin-bottom:6px">Společnost</div>
+          Hotel Grand Špindlerův Mlýn s.r.o.<br>IČO 30252776<br><span class="ph">[sídlo]</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <div class="stack" style="gap:10px"><b>Grand Špindlerův Mlýn</b><p>Hotel Grand Špindlerův Mlýn s.r.o. · IČO 30252776 · <span class="ph">[sídlo, zápis v OR]</span></p></div>
+  <div class="stack" style="gap:6px"><a href="#projekt">Projekt hotelu</a><a href="#historie">Historie</a><a href="#otazky">Otázky a odpovědi</a><a href="#kontakt">Kontakt</a></div>
+  <div class="stack mono" style="gap:6px"><span>Zpracování osobních údajů</span><span>Cookies</span><span>Vizualizace: asi-metr, 2023</span><span>© 2026</span></div>
+</div></footer>
+
+<dialog id="lb"><img id="lb-img" alt=""><div class="bar2"><span id="lb-cap"></span><span style="display:flex;gap:8px"><button id="lb-prev" aria-label="Předchozí">←</button><button id="lb-next" aria-label="Další">→</button><button id="lb-close">Zavřít</button></span></div></dialog>
+
+<script>
+(function(){
+  var pages=["uvod","spolecnost","projekt","historie","otazky","kontakt"];
+  function show(){
+    var h=(location.hash||"").slice(1); if(pages.indexOf(h)<0) h="uvod";
+    pages.forEach(function(p){document.getElementById("p-"+p).classList.toggle("on",p===h)});
+    document.querySelectorAll("nav.main a").forEach(function(a){a.toggleAttribute("aria-current",a.getAttribute("href")==="#"+h); if(a.getAttribute("href")==="#"+h) a.setAttribute("aria-current","page")});
+    document.getElementById("nav").classList.remove("open");
+    document.getElementById("menuBtn").setAttribute("aria-expanded","false");
+    window.scrollTo(0,0);
+  }
+  window.addEventListener("hashchange",show); show();
+  document.getElementById("menuBtn").addEventListener("click",function(){var n=document.getElementById("nav");var o=n.classList.toggle("open");this.setAttribute("aria-expanded",o)});
+
+  var viz=[25,26,27,28,29,30,31,32,33,34,35,36];
+  var caps={25:"Zimní pohled od řeky",26:"Celkový pohled s parkem",27:"Příjezd k hotelu",28:"Pohled od silnice",29:"Park s jezírkem",30:"Kluziště v zimě",31:"Park pod hotelem",32:"Ohniště a hřiště",33:"Cesta parkem",34:"Venkovní bazén",35:"Wellness terasa",36:"Terasa s výhledem"};
+  var g=document.getElementById("gallery"), idx=0;
+  viz.forEach(function(n,i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-label","Zvětšit: "+caps[n]);b.innerHTML='<img loading="lazy" src="img/viz-'+n+'.jpg" alt="'+caps[n]+'">';b.addEventListener("click",function(){open(i)});g.appendChild(b)});
+  var lb=document.getElementById("lb");
+  function open(i){idx=(i+viz.length)%viz.length;document.getElementById("lb-img").src="img/viz-"+viz[idx]+".jpg";document.getElementById("lb-img").alt=caps[viz[idx]];document.getElementById("lb-cap").textContent=(idx+1)+" / "+viz.length+" · "+caps[viz[idx]];if(!lb.open)lb.showModal()}
+  document.getElementById("lb-prev").onclick=function(){open(idx-1)};
+  document.getElementById("lb-next").onclick=function(){open(idx+1)};
+  document.getElementById("lb-close").onclick=function(){lb.close()};
+  lb.addEventListener("click",function(e){if(e.target===lb)lb.close()});
+  lb.addEventListener("keydown",function(e){if(e.key==="ArrowLeft")open(idx-1);if(e.key==="ArrowRight")open(idx+1)});
+
+  var c=document.getElementById("cmp"),cw=document.getElementById("compare");
+  c.addEventListener("input",function(){cw.style.setProperty("--pos",c.value+"%")});
+
+  document.getElementById("f").addEventListener("submit",function(e){e.preventDefault();document.getElementById("f-res").hidden=false});
+})();
+</script>
+</body>
+</html>
